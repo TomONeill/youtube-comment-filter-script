@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         YouTube Annoying Comments Remover
+// @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
 // @version      0.0.1
-// @description  Removes typical comments like 'first' and comments shorter than 5 chars. Everything can be modified to the users liking.
+// @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @match        https://www.youtube.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
