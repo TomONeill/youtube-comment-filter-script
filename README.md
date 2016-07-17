@@ -5,7 +5,7 @@ Enjoy.
 <BR/><BR/>
 Version <strong>0.0.1</strong>
 
-<A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comments-remover.user.js">INSTALL</A>
+<A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
 # Description
 This repository includes a userscript for Greasemonkey and Tampermonkey that tries to find and remove stupid comments like "first" and "I'm early".
