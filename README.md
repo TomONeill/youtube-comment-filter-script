@@ -28,7 +28,7 @@ It would be amazing for this script to become aware of annoying comments by itse
 - A DOM that allows changing some settings of the userscript (is this something users would like to see?)
 
 # Changelog
-<A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/Changelog.txt">View changelog</A>
+<A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
 
 # About userscripts
 This is a userscript which you can use in combination with a browser extension to inject JavaScript (Greasemonkey, Tampermonkey).
