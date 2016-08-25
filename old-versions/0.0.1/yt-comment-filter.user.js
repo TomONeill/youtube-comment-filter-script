@@ -1,7 +1,7 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      0.0.2
+// @version      0.0.1
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @match        https://www.youtube.com/*
 // @run-at       document-start
@@ -17,7 +17,7 @@
 
 $(function() {
 	// TODO:
-	// - Comment counter improvements (not duplicating "SPAM" tag).
+	// - Comment counter.
 	// - Comment replies.
 	// - Regex for 'early' comments.
 	// - Cringe removal.
@@ -35,16 +35,16 @@ $(function() {
 	var REMOVE_SELF_PROMO = true;
 	var REMOVE_ATTENTION_SEEKERS = true;
 	
-	var translation_spam = "Spam";
-	// var commentSection = $('#comment-section-renderer');
-	// var loadingPanel = $('.action-panel-loading');
-	// var commentCounter = $('h2.comment-section-header-renderer');
+	
+	var commentSection = $('#comment-section-renderer');
+	var loadingPanel = $('.action-panel-loading');
+	var commentCounter = $('h2.comment-section-header-renderer');
 	
 	checkIsLoading();
 	
 	function checkIsLoading() {
-		var isLoading = $('#watch-discussion').find('.action-panel-loading').length;
-
+		var isLoading = $('#comment-section-renderer').find('.action-panel-loading').length;
+		
 		if (isLoading) {
 			setTimeout(function() {
 				checkIsLoading();
@@ -60,7 +60,7 @@ $(function() {
 	
 	function listenForNewComments(commentCount) {
 		var currentCommentCount = $('.comment-thread-renderer').length;
-
+		
 		if (commentCount !== currentCommentCount) {
 			console.log("YTACR: New comments found.");
 			
@@ -200,19 +200,21 @@ $(function() {
 			}
 		);
 		
-		setCommentCounter(removedComments);
+		// setCommentCounter(removedComments);
 		console.log("YTACR: Removed " + removedComments + " comments.");
 	}
 	
 	function setCommentCounter(removedComments) {
-		var commentCounter = $('h2.comment-section-header-renderer');
-		var commentCounterString = commentCounter.html();
-		var getTotalCommentsRegex = /• (.*)<span/;
- 		var totalComments = getTotalCommentsRegex.exec(commentCounterString)[1];
- 		var newCommentCount = (totalComments - removedComments);
-
-		commentCounterString = commentCounterString.replace(totalComments, newCommentCount);
- 		commentCounter.html(commentCounterString + "<b>" + translation_spam + "</b> • " + removedComments);
+		var getTotalCommentsRegex = /^[1-9][0-9]*$/;
+		var totalComments = getTotalCommentsRegex.exec(commentCounter.html());
+		
+		console.log("total comments: " + totalComments);
+		
+		var newCommentCount = totalComments - removedComments;
+		
+		commentCounter.html(" • " + newCommentCount);
+		
+		console.log("new total comments: " + newCommentCount);
 	}
 	
 	console.log("YTACR: YouTube Annoying Comments Remover (YTACR) script active.");

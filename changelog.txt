@@ -1,4 +1,8 @@
 YouTube Comment Filter Changelog
 
+Version 0.0.2 (25 August 2016)
+Fixed YouTube changing code, which broke this script.
+Added working comment counter (but copies the SPAM flag after loading more comments (nothing breaking)).
+
 Version 0.0.1 (16 July 2016)
 First working draft (internal release).

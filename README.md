@@ -3,7 +3,7 @@ Script that filters unwanted comments.
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>0.0.1</strong>
+Version <strong>0.0.2</strong>
 
 <A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
