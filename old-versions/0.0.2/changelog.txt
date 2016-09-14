@@ -1,9 +1,5 @@
 YouTube Comment Filter Changelog
 
-Version 0.0.3 (14 September 2016)
-Comment counter now changes if comments are found and deleted.
-Added spam counter shown next to the comment counter.
-
 Version 0.0.2 (25 August 2016)
 Fixed YouTube changing code, which broke this script.
 Added working comment counter (but copies the SPAM flag after loading more comments (nothing breaking)).

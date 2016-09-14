@@ -3,9 +3,12 @@ Script that filters unwanted comments.
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>0.0.2</strong>
+Version <strong>0.0.3</strong>
 
 <A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
+
+# Screenshot
+<IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview.png" />
 
 # Description
 This repository includes a userscript for Greasemonkey and Tampermonkey that tries to find and remove stupid comments like "first" and "I'm early".
@@ -13,7 +16,7 @@ This repository includes a userscript for Greasemonkey and Tampermonkey that tri
 # Lots of work left
 The script is currently still in development. Code needs to be cleaned out, optimised and lots of additions needs to be included. Still I thought I'd share this script with you, as it does a simple job of cleaning out comments you don't need to be annoyed about.
 
-If you are a developer, don't be ashamed to send out a pull request. I'll review your code, comment on it and include it into the project.
+If you are a developer, don't be ashamed to send out a pull request. I'll review your code, comment on it and include it into the project, since it can't be worse than it is now :p.
 
 # Target goals/how it works
 The script does a very simple job by comparing each comment with hardcoded commonly used comments (or commonly used word combinations). It checks every now and then (configurable in the code) for new comments (which means that when you scroll down it will look for comments which weren't there before or after clicking the "Load more comments" button) and filters the annoying ones out.
@@ -24,7 +27,6 @@ It would be amazing for this script to become aware of annoying comments by itse
 
 # Known bugs/missing features
 - Viewing more replies to comments don't get filtered.
-- The total comment count does not get updated.
 - A DOM that allows changing some settings of the userscript (is this something users would like to see?)
 
 # Changelog

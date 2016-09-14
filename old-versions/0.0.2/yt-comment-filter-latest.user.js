@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      0.0.3
+// @version      0.0.2
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @match        https://www.youtube.com/*
 // @run-at       document-start
@@ -17,10 +17,10 @@
 
 $(function() {
 	// TODO:
+	// - Comment counter improvements (not duplicating "SPAM" tag).
 	// - Comment replies.
 	// - Regex for 'early' comments.
 	// - Cringe removal.
-	// - Code cleaning and stuff. All of this is done in a very short period of time. Am too lazy to do it properly for now.
 	
 	// SETTINGS:
 	var INTERVAL = 500; // ms
@@ -205,45 +205,14 @@ $(function() {
 	}
 	
 	function setCommentCounter(removedComments) {
-		var isUsingImperial = false;
 		var commentCounter = $('h2.comment-section-header-renderer');
-		var span = "<span class=\"alternate-content-link\"></span>";
-		var commentCounterText = commentCounter.find('b').first().text();
-		
-		var getCommentCountsRegex = /• (.*)<span/;
-		var commentCountsHtml = commentCounter.html();
- 		var commentCounts = getCommentCountsRegex.exec(commentCountsHtml);
-		var currentTotalComments = commentCounts[1];
-		
-		var getSpamCountsRegex = /\s(\w+)$/;
- 		var spamCounts = getSpamCountsRegex.exec(commentCountsHtml);
-		var currentSpamComments = "0";
-		if (spamCounts !== null) {
-			currentSpamComments = spamCounts[1];
-		}
-		
-		if (currentTotalComments.indexOf(',') !== -1) {
-			isUsingImperial = true;
-			currentTotalComments = currentTotalComments.replace(',', '');
-			currentSpamComments = currentSpamComments.replace(',', '');
-		} else {
-			currentTotalComments = currentTotalComments.replace('.', '');
-			currentSpamComments = currentSpamComments.replace('.', '');
-		}
+		var commentCounterString = commentCounter.html();
+		var getTotalCommentsRegex = /• (.*)<span/;
+ 		var totalComments = getTotalCommentsRegex.exec(commentCounterString)[1];
+ 		var newCommentCount = (totalComments - removedComments);
 
- 		var newCommentCount = (currentTotalComments - removedComments);
- 		var newSpamCount = (parseInt(currentSpamComments) + removedComments);
-		
-		if (isUsingImperial) {
-			newCommentCount = newCommentCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1,").split("").reverse().join("");
-			newSpamCount = newSpamCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1,").split("").reverse().join("");
-		} else {
-			newCommentCount = newCommentCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1.").split("").reverse().join("");
-			newSpamCount = newSpamCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1.").split("").reverse().join("");
-		}
-		
- 		commentCounter.html("<b>" + commentCounterText + "</b> • " + newCommentCount + span
-						  + "<b>" + translation_spam + "</b> • " + newSpamCount);
+		commentCounterString = commentCounterString.replace(totalComments, newCommentCount);
+ 		commentCounter.html(commentCounterString + "<b>" + translation_spam + "</b> • " + removedComments);
 	}
 	
 	console.log("YTACR: YouTube Annoying Comments Remover (YTACR) script active.");
