@@ -3,6 +3,7 @@
 // @namespace    https://www.youtube.com/
 // @version      0.0.3
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
+// @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
 // @match        https://www.youtube.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
