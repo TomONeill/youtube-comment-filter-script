@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      0.0.4
+// @version      0.0.3
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @match        https://www.youtube.com/*
 // @run-at       document-start
@@ -17,17 +17,28 @@
 
 $(function() {
 	// TODO:
-	// - Comment replies (fixed?).
+	// - Comment replies.
+	// - Regex for 'early' comments.
+	// - Cringe removal.
 	// - Code cleaning and stuff. All of this is done in a very short period of time. Am too lazy to do it properly for now.
 	
 	// SETTINGS:
 	var INTERVAL = 500; // ms
 	
-	var MIN_LENGTH = 5; // minimal comment characters
-	var ABSOLUTE_MIN_WORD_COUNT = 2; // minimal comment words
-	var MIN_WORD_COUNT = 3; // minimal comment words in combination with the filter
+	var MIN_LENGTH = 5;
+	var MIN_WORD_COUNT = 3;
+	var REMOVE_FIRST = true;
+	var REMOVE_EARLY = true;
+	var REMOVE_CRINGE = true;
+	var REMOVE_FIFTH_LIKE = true;
+	var REMOVE_SELF_LIKE = true;
+	var REMOVE_SELF_PROMO = true;
+	var REMOVE_ATTENTION_SEEKERS = true;
 	
 	var translation_spam = "Spam";
+	// var commentSection = $('#comment-section-renderer');
+	// var loadingPanel = $('.action-panel-loading');
+	// var commentCounter = $('h2.comment-section-header-renderer');
 	
 	checkIsLoading();
 	
@@ -73,109 +84,117 @@ $(function() {
 					removedComments++;
 				}
 				
-				if (comment.split(' ').length < ABSOLUTE_MIN_WORD_COUNT) {
-					this.remove();
-					removedComments++;
-				}
-				
-				var first = [
-					"first",
-					"frist",
-					"1st",
-					"second",
-					"2nd",
-					"3rd",
-					"4th"
-				];
-
-				for (var f in first) {
-					if (comment.indexOf(first[f]) > -1 &&
-					    comment.split(' ').length < MIN_WORD_COUNT) {
-						this.remove();
-						removedComments++;
-					}
-				}
-				
-				var early = "early";
-				if (comment.indexOf(early) > -1 &&
-					comment.split(' ').length < MIN_WORD_COUNT) {
-					this.remove();
-					removedComments++;
-				}
-				
-				var earlyOptions = [
-					"i was this early",
-					"i am so early",
-					"i'm early",
-					"im early"
-				];
-				
-				for (var eo in earlyOptions) {
-					if (comment.indexOf(earlyOptions[eo])) {
-						this.remove();
-						removedComments++;
-					}
-				}
-				
-				var cringe = "cringe";
-
-				if (comment.indexOf(cringe) > -1 &&
-					comment.split(' ').length < MIN_WORD_COUNT) {
-					this.remove();
-					removedComments++;
-				}
-				
-				var selfLikes = [
-					"can i get a thumbs up",
-					"like my comment",
-					"i get top rated",
-					"i get top comment"
-				];
-
-				for (var sl in selfLikes) {
-					if (comment.indexOf(selfLikes[sl]) > -1) {
-						this.remove();
-						removedComments++;
-					}
-				}
-				
-				var selfPromos = [
-					"on my channel"
-				];
-
-				for (var sp in selfPromos) {
-					if (comment.indexOf(selfPromos[sp]) > -1) {
-						this.remove();
-						removedComments++;
-					}
-				}
-				
-				var attentionPhrases = [
-					"if your reading this",
-					"if you are reading this",
-					"if you're reading this",
-					"if you read this",
-					"i get top comment",
-					"notification squad",
-					"hisss",
-					"darude",
-					"who is watching this",
-					"watching this in",
-					"first like",
-					"second like",
-					"fifth like",
-					"5th like",
-					"first comment",
-					"early comment",
-					"this sea of comments",
-					"of you will skip this but",
-					"scrolling through the comments"
-				];
+				if (REMOVE_FIRST) {
+					var first = [
+						"first",
+						"1st",
+						"second",
+						"2nd",
+						"3rd",
+						"4th"
+					];
 					
-				for (var ap in attentionPhrases) {
-					if (comment.indexOf(attentionPhrases[ap]) > -1) {
+					for (var f in first) {
+						if (comment.indexOf(first[f]) > -1 &&
+					        comment.split(' ').length < MIN_WORD_COUNT) {
+							this.remove();
+							removedComments++;
+						}
+					}
+				}
+				
+				if (REMOVE_EARLY) {
+					var early = "early";
+					var earlyOptions = [
+						"i was this early",
+						"i am so early",
+						"i'm early",
+						"im early"
+					];
+					
+					if (comment.indexOf(early) > -1) {
+						if (comment.split(' ').length < MIN_WORD_COUNT) {
+							this.remove();
+							removedComments++;
+						}
+						
+						for (var eo in earlyOptions) {
+							if (comment.indexOf(earlyOptions[eo])) {
+								this.remove();
+								removedComments++;
+							}
+						}
+					}
+				}
+				
+				if (REMOVE_CRINGE) {
+					var cringe = "cringe";
+					
+					if (comment.indexOf(cringe) > -1) {
 						this.remove();
 						removedComments++;
+					}
+				}
+				
+				if (REMOVE_FIFTH_LIKE) {
+					var fifthLike = "5th like";
+					
+					if (comment.indexOf(fifthLike) > -1) {
+						this.remove();
+						removedComments++;
+					}
+				}
+				
+				if (REMOVE_SELF_LIKE) {
+					var selfLikes = [
+						"can i get a thumbs up",
+						"like my comment",
+						"i get top rated",
+						"i get top comment"
+					];
+					
+					for (var sl in selfLikes) {
+						if (comment.indexOf(selfLikes[sl]) > -1) {
+							this.remove();
+							removedComments++;
+						}
+					}
+				}
+				
+				if (REMOVE_SELF_PROMO) {
+					var selfPromos = [
+						"on my channel"
+					];
+					
+					for (var sp in selfPromos) {
+						if (comment.indexOf(selfPromos[sp]) > -1) {
+							this.remove();
+							removedComments++;
+						}
+					}
+				}
+				
+				if (REMOVE_ATTENTION_SEEKERS) {
+					var attentionPhrases = [
+						"If your reading this",
+						"If you are reading this",
+						"If you're reading this",
+						"i get top comment",
+						"notification squad",
+						"hisss",
+						"darude",
+						"who is watching this",
+						"watching this in",
+						"first like",
+						"first comment",
+						"early comment"
+					];
+					
+					for (var ap in attentionPhrases) {
+						if (comment.indexOf(attentionPhrases[ap]) > -1) {
+							this.remove();
+							removedComments++;
+						}
 					}
 				}
 			}

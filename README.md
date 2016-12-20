@@ -3,7 +3,7 @@ Script that filters unwanted comments.
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>0.0.3</strong>
+Version <strong>0.0.4</strong>
 
 <A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
@@ -21,13 +21,8 @@ If you are a developer, don't be ashamed to send out a pull request. I'll review
 # Target goals/how it works
 The script does a very simple job by comparing each comment with hardcoded commonly used comments (or commonly used word combinations). It checks every now and then (configurable in the code) for new comments (which means that when you scroll down it will look for comments which weren't there before or after clicking the "Load more comments" button) and filters the annoying ones out.
 
-I added some variables in the top of the code for you to change freely. This means that you can enable/disable specific comment filtering methods by yourself.
-
-It would be amazing for this script to become aware of annoying comments by itself that are not hardcoded. It could create it's own database (which is supported by script managers) with comments the user reported as spam or by checking how words are being used and rate the comment with a value that determines if the comment is bad or not. This is something I can only dream of and don't think will ever happen. Just like if Google decides to implement such a feature in the commenting system so that not only installers of this script can enjoy annoyance free comments.
-
-# Known bugs/missing features
-- Viewing more replies to comments don't get filtered.
-- A DOM that allows changing some settings of the userscript (is this something users would like to see?)
+# Known bugs
+- Viewing more replies to comments don't get filtered (might be fixed?).
 
 # Changelog
 <A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>

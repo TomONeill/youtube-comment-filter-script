@@ -1,5 +1,10 @@
 YouTube Comment Filter Changelog
 
+Version 0.0.4 (20 December 2016)
+Added a few filters.
+Added general minimal word count.
+Removed filter option flags.
+
 Version 0.0.3 (14 September 2016)
 Comment counter now changes if comments are found and deleted.
 Added spam counter shown next to the comment counter.

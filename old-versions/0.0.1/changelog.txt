@@ -1,4 +1,0 @@
-YouTube Comment Filter Changelog
-
-Version 0.0.1 (16 July 2016)
-First working draft (internal release).
