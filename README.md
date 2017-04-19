@@ -16,9 +16,6 @@ This repository includes a userscript for Greasemonkey and Tampermonkey that tri
 # How it works
 The script does a very simple job by comparing each comment with hardcoded commonly used comments (or commonly used word combinations). It checks every now and then (configurable in the code) for new comments (which means that when you scroll down it will look for comments which weren't there before or after clicking the "Load more comments" button) and filters the annoying ones out.
 
-# Changelog
-<A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
-
 # Turn off certain 'rules'
 You can simply turn some of the rules off if you don't like what they are doing. For example if you don't want <i>first</i> comments to be filtered out, simple click the script and find (somewhere above) <i>REMOVE_FIRST</i>. Change true to false and you are good to go :)
 Available rules with their default values (everything true by default):
@@ -34,6 +31,9 @@ Available rules with their default values (everything true by default):
     var REMOVE_SELF_LIKES = true;        // Removes any comment which has suspicion of asking for likes
     var REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
     var REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
+
+# Changelog
+<A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
 
 # Donate
 If you like my work so much you feel like doing something nice for me, a complete stranger of the internet, you can.<BR />
