@@ -1,5 +1,11 @@
 YouTube Comment Filter Changelog
 
+Version 1.0.0 (19 April 2017)
+Fixed: All comments were being removed
+Added options for the user to enable/disable
+Added debug option (you're able to view which comments were removed for a specific rule in the browser's Console if turning this on.
+Some code improvements, pretty minor.
+
 Version 0.0.4 (20 December 2016)
 Added a few filters.
 Added general minimal word count.
