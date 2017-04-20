@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      1.0.2
+// @version      1.0.0
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
 // @match        https://www.youtube.com/*
@@ -41,7 +41,6 @@ $(function() {
 	// END OF SETTINGS
     
     var _removedComments = 0;
-    var _removedCommentsTotal = 0;
     
 	checkIsLoading();
 	
@@ -86,14 +85,12 @@ $(function() {
                     if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_LENGTH rule (${comment.length}/${MIN_COMMENT_LENGTH})`); }
 					this.remove();
 					_removedComments++;
-					return true;
 				}
 				
 				if (commentWordCount < MIN_COMMENT_WORDS) {
                     if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_WORDS rule (${commentWordCount}/${MIN_COMMENT_WORDS})`); }
 					this.remove();
 					_removedComments++;
-					return true;
 				}
 				
                 if (REMOVE_FIRST) {
@@ -113,7 +110,6 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_FIRST rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
                         }
                     }
                 }
@@ -125,7 +121,6 @@ $(function() {
                         if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_EARLY_AGGRESSIVE rule.`); }
                         this.remove();
                         _removedComments++;
-						return true;
                     }
                 }
 				
@@ -142,7 +137,6 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_EARLY rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
                         }
                     }
                 }
@@ -155,7 +149,6 @@ $(function() {
                         if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_CRINGE_AGGRESSIVE rule.`); }
                         this.remove();
                         _removedComments++;
-						return true;
                     }
                 }
 				
@@ -172,7 +165,6 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_SELF_LIKES rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
                         }
                     }
                 }
@@ -187,7 +179,6 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_SELF_PROMO rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
                         }
                     }
                 }
@@ -220,20 +211,17 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_ATTENTION_SEEKERS rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
                         }
                     }
                 }
 			}
 		);
 		
-		_removedCommentsTotal += _removedComments;
-		setCommentCounter(_removedComments, _removedCommentsTotal);
-        if (DEBUG) { console.log(`YTACR: Removed ${_removedComments} comments this run. Total removed comments: ${_removedCommentsTotal}.`); }
-		_removedComments = 0;
+		setCommentCounter(_removedComments);
+        if (DEBUG) { console.log(`YTACR: Removed ${_removedComments} comments.`); }
 	}
     
-	function setCommentCounter(removedComments, removedCommentsTotal) {
+	function setCommentCounter(_removedComments) {
 		var isUsingImperial = false;
 		var commentCounter = $('h2.comment-section-header-renderer');
 		var span = "<span class=\"alternate-content-link\"></span>";
@@ -244,15 +232,24 @@ $(function() {
  		var commentCounts = getCommentCountsRegex.exec(commentCountsHtml);
 		var currentTotalComments = commentCounts[1];
 		
+		var getSpamCountsRegex = /\s(\w+)$/;
+ 		var spamCounts = getSpamCountsRegex.exec(commentCountsHtml);
+		var currentSpamComments = "0";
+		if (spamCounts !== null) {
+			currentSpamComments = spamCounts[1];
+		}
+		
 		if (currentTotalComments.indexOf(',') !== -1) {
 			isUsingImperial = true;
 			currentTotalComments = currentTotalComments.replace(',', '');
+			currentSpamComments = currentSpamComments.replace(',', '');
 		} else {
 			currentTotalComments = currentTotalComments.replace('.', '');
+			currentSpamComments = currentSpamComments.replace('.', '');
 		}
 
- 		var newCommentCount = (currentTotalComments - removedComments);
- 		var newSpamCount = removedCommentsTotal;
+ 		var newCommentCount = (currentTotalComments - _removedComments);
+ 		var newSpamCount = (parseInt(currentSpamComments) + _removedComments);
 		
 		if (isUsingImperial) {
 			newCommentCount = newCommentCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1,").split("").reverse().join("");
@@ -263,8 +260,8 @@ $(function() {
 		}
 
         commentCounter.html(`
-            <b>${commentCounterText}</b> • ${newCommentCount + span}
-            <b>${translation_spam}</b> • ${newSpamCount}
+            <strong>${commentCounterText}</strong> • ${newCommentCount + span}
+            <strong>${translation_spam}</strong> • ${newSpamCount}
         `);
 	}
 	

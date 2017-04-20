@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      1.0.2
+// @version      1.0.1
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
 // @match        https://www.youtube.com/*
@@ -86,14 +86,14 @@ $(function() {
                     if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_LENGTH rule (${comment.length}/${MIN_COMMENT_LENGTH})`); }
 					this.remove();
 					_removedComments++;
-					return true;
+					return false;
 				}
 				
 				if (commentWordCount < MIN_COMMENT_WORDS) {
                     if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_WORDS rule (${commentWordCount}/${MIN_COMMENT_WORDS})`); }
 					this.remove();
 					_removedComments++;
-					return true;
+					return false;
 				}
 				
                 if (REMOVE_FIRST) {
@@ -113,7 +113,7 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_FIRST rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
+							return false;
                         }
                     }
                 }
@@ -125,7 +125,7 @@ $(function() {
                         if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_EARLY_AGGRESSIVE rule.`); }
                         this.remove();
                         _removedComments++;
-						return true;
+						return false;
                     }
                 }
 				
@@ -142,7 +142,7 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_EARLY rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
+							return false;
                         }
                     }
                 }
@@ -155,7 +155,7 @@ $(function() {
                         if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_CRINGE_AGGRESSIVE rule.`); }
                         this.remove();
                         _removedComments++;
-						return true;
+						return false;
                     }
                 }
 				
@@ -172,7 +172,7 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_SELF_LIKES rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
+							return false;
                         }
                     }
                 }
@@ -187,7 +187,7 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_SELF_PROMO rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
+							return false;
                         }
                     }
                 }
@@ -220,7 +220,7 @@ $(function() {
                             if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_ATTENTION_SEEKERS rule.`); }
                             this.remove();
                             _removedComments++;
-							return true;
+							return false;
                         }
                     }
                 }
