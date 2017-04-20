@@ -17,7 +17,7 @@ This repository includes a userscript for Greasemonkey and Tampermonkey that tri
 The script does a very simple job by comparing each comment with hardcoded commonly used comments (or commonly used word combinations). It checks every now and then (configurable in the code) for new comments (which means that when you scroll down it will look for comments which weren't there before or after clicking the "Load more comments" button) and filters the annoying ones out.
 
 # Turn off certain 'rules'
-You can simply turn some of the rules off if you don't like what they are doing. For example if you don't want <i>first</i> comments to be filtered out, simple click the script and find (somewhere above) <i>REMOVE_FIRST</i>. Change true to false and you are good to go :)
+You can simply turn some of the rules off if you don't like what they are doing. For example if you don't want <i>first</i> comments to be filtered out, simply click the script and find (somewhere above) <i>REMOVE_FIRST</i>. Change true to false and you are good to go :)
 Available rules with their default values (everything true by default):
 
 	var MIN_COMMENT_LENGTH = 5;          // Removes any comment that has less than # characters
