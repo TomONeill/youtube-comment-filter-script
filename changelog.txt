@@ -1,8 +1,13 @@
 YouTube Comment Filter Changelog
 
+Version 1.0.1 (20 April 2017)
+Improved the spam counter to a simpler implementation.
+Improved debug logging.
+Fixed second comment removal causing the comments counter not being updated.
+
 Version 1.0.0 (19 April 2017)
-Fixed: All comments were being removed
-Added options for the user to enable/disable
+Fixed: All comments were being removed.
+Added options for the user to enable/disable.
 Added debug option (you're able to view which comments were removed for a specific rule in the browser's Console if turning this on.
 Some code improvements, pretty minor.
 
