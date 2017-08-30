@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      2.0
+// @version      1.0.3
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
 // @match        https://www.youtube.com/*
@@ -18,72 +18,87 @@
 
 $(function() {
 	// TODO:
-	// - Replies to comment get flagged if main comment is, otherwise they do not get checked.
-    // - SPAM flare gets triggered multiple times.
-	// - Add a toggle to determine whether the total comment counter should subtract spam.
+	// - Not sure if replies to comment get filtered.
+    // - Code is not that pretty.
 	
 	// CHANGE THESE SETTINGS TO YOUR LIKING:
-	const MIN_COMMENT_LENGTH = 5;          // Removes any comment that has less than # characters
-	const MIN_COMMENT_WORDS = 2;           // Removes any comment that has less than # words
-	const MIN_COMMENT_WORDS_FILTER = 3;    // Removes any comment that has less than # characters words in combination with any (non-aggressive) filter
+	var MIN_COMMENT_LENGTH = 5;          // Removes any comment that has less than # characters
+	var MIN_COMMENT_WORDS = 2;           // Removes any comment that has less than # words
+	var MIN_COMMENT_WORDS_FILTER = 3;    // Removes any comment that has less than # characters words in combination with any (non-aggressive) filter
     
-    const REMOVE_FIRST = true;             // Removes any comment with suspected combinations of "first"
-    const REMOVE_EARLY = true;             // Removes any comment with suspected combinations of "early"
-    const REMOVE_EARLY_AGGRESSIVE = true;  // Removes any comment with "early" without looking at MIN_COMMENT_WORDS_FILTER
-    const REMOVE_CRINGE_AGGRESSIVE = true; // Removes any comment with "cringe" without looking at MIN_COMMENT_WORDS_FILTER
-    const REMOVE_SELF_LIKES = true;        // Removes any comment which has suspicion of asking for likes
-    const REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
-    const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
+    var REMOVE_FIRST = true;             // Removes any comment with suspected combinations of "first"
+    var REMOVE_EARLY = true;             // Removes any comment with suspected combinations of "early"
+    var REMOVE_EARLY_AGGRESSIVE = true;  // Removes any comment with "early" without looking at MIN_COMMENT_WORDS_FILTER
+    var REMOVE_CRINGE_AGGRESSIVE = true; // Removes any comment with "cringe" without looking at MIN_COMMENT_WORDS_FILTER
+    var REMOVE_SELF_LIKES = true;        // Removes any comment which has suspicion of asking for likes
+    var REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
+    var REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
-	const FLAG_INSTEAD_OF_REMOVE = false;  // [Experimental] Instead of removing comments, show a "spam" flair (works, but flags comments multiple times)
+	var FLAG_INSTEAD_OF_REMOVE = false;  // Instead of removing comments, show a "spam" flair
 	
-    const DEBUG = false;
-	const INTERVAL = 300; // ms
+    var DEBUG = false;
+	var INTERVAL = 500; // ms
 	// END OF SETTINGS
     
-	const _spamFlair = "<span style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>SPAM</span>";
+	var _spamFlair = "<span style='font-family: sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px;'>SPAM</span>";
 	
     var _removedComments = 0;
     var _removedCommentsTotal = 0;
     
-	listenForNewComments();
+	checkIsLoading();
 	
-	function listenForNewComments(commentThreadCount = 0) {
-		const currentCommentThreadCount = $('ytd-comments').find('ytd-comment-renderer #content-text').length;
+	function checkIsLoading() {
+		var isLoading = $('#watch-discussion').find('.action-panel-loading').length;
 
-		if (commentThreadCount !== currentCommentThreadCount) {
-			if (DEBUG) { console.log(`YTACR: New comments found (${currentCommentThreadCount}).`); }
+		if (isLoading) {
+			setTimeout(function() {
+				checkIsLoading();
+			}, 500);
+		} else {
+			if (DEBUG) { console.log("YTACR: Comment section loaded."); }
+			removeComments();
+			
+			var commentCount = $('.comment-thread-renderer').length;
+			listenForNewComments(commentCount);
+		}
+	}
+	
+	function listenForNewComments(commentCount) {
+		var currentCommentCount = $('.comment-thread-renderer').length;
+
+		if (commentCount !== currentCommentCount) {
+			if (DEBUG) { console.log("YTACR: New comments found."); }
 			
 			removeComments();
 		}
 		
 		setTimeout(function() {
-			listenForNewComments(currentCommentThreadCount);
+			listenForNewComments(currentCommentCount);
 		}, INTERVAL);
 	}
 	
 	function removeComments() {
-		$('ytd-comment-renderer')
-			.each((index, detectedComment) => {
-			const comment = $(detectedComment).find('#content-text').html().toLowerCase();
-			const commentWordCount = comment.split(' ').length;
-			
+		$('.comment-thread-renderer')
+			.each((index, commentThreadRenderer) => {
+			var comment = $(commentThreadRenderer).find('.comment-renderer-text-content').html().toLowerCase();
+			var commentWordCount = comment.split(' ').length;
+
 			if (comment.length < MIN_COMMENT_LENGTH) {
 				if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_LENGTH rule (${comment.length}/${MIN_COMMENT_LENGTH})`); }
 
-				processCommentRemoval(detectedComment);
+				processCommentRemoval(commentThreadRenderer);
 				return true;
 			}
 
 			if (commentWordCount < MIN_COMMENT_WORDS) {
 				if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_WORDS rule (${commentWordCount}/${MIN_COMMENT_WORDS})`); }
 
-				processCommentRemoval(detectedComment);
+				processCommentRemoval(commentThreadRenderer);
 				return true;
 			}
 
 			if (REMOVE_FIRST) {
-				const first = [
+				var first = [
 					"first",
 					"frist",
 					"1st",
@@ -98,80 +113,73 @@ $(function() {
 						commentWordCount < MIN_COMMENT_WORDS_FILTER) {
 						if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_FIRST rule.`); }
 
-						processCommentRemoval(detectedComment);
+						processCommentRemoval(commentThreadRenderer);
 						return true;
 					}
 				}
 			}
 
 			if (REMOVE_EARLY_AGGRESSIVE) {
-				const early = "early";
+				var early = "early";
 				if (comment.indexOf(early) > -1 &&
 					commentWordCount < MIN_COMMENT_WORDS_FILTER) {
 					if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_EARLY_AGGRESSIVE rule.`); }
 
-					processCommentRemoval(detectedComment);
+					processCommentRemoval(commentThreadRenderer);
 					return true;
 				}
 			}
 
 			if (REMOVE_EARLY) {
-				const earlyOptions = [
+				var earlyOptions = [
 					"i was this early",
 					"i am so early",
 					"i'm early",
-					"im early",
-					"who else is early"
+					"im early"
 				];
 
 				for (var eo in earlyOptions) {
 					if (comment.indexOf(earlyOptions[eo]) > -1) {
 						if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_EARLY rule.`); }
 
-						processCommentRemoval(detectedComment);
+						processCommentRemoval(commentThreadRenderer);
 						return true;
 					}
 				}
 			}
 
 			if (REMOVE_CRINGE_AGGRESSIVE) {
-				const cringe = "cringe";
+				var cringe = "cringe";
 
 				if (comment.indexOf(cringe) > -1 &&
 					commentWordCount < MIN_COMMENT_WORDS_FILTER) {
 					if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_CRINGE_AGGRESSIVE rule.`); }
 
-					processCommentRemoval(detectedComment);
+					processCommentRemoval(commentThreadRenderer);
 					return true;
 				}
 			}
 
 			if (REMOVE_SELF_LIKES) {
-				const selfLikes = [
+				var selfLikes = [
 					"can i get a thumbs up",
-					"can I have likes",
 					"like my comment",
-					"like my own comment",
 					"i get top rated",
-					"i get top comment",
-					"every person who likes this comment",
-					"comment when done",
-					"Sub=",
-					"Sub:"
+					"i get top comment"
 				];
 
 				for (var sl in selfLikes) {
 					if (comment.indexOf(selfLikes[sl]) > -1) {
 						if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_SELF_LIKES rule.`); }
 
-						processCommentRemoval(detectedComment);
+						processCommentRemoval(commentThreadRenderer);
 						return true;
 					}
 				}
 			}
 
 			if (REMOVE_SELF_PROMO) {
-				const selfPromos = [
+				var selfPromos = [
 					"on my channel"
 				];
 
@@ -179,14 +187,14 @@ $(function() {
 					if (comment.indexOf(selfPromos[sp]) > -1) {
 						if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_SELF_PROMO rule.`); }
 
-						processCommentRemoval(detectedComment);
+						processCommentRemoval(commentThreadRenderer);
 						return true;
 					}
 				}
 			}
 
 			if (REMOVE_ATTENTION_SEEKERS) {
-				const attentionPhrases = [
+				var attentionPhrases = [
 					"if your reading this",
 					"if you are reading this",
 					"if you're reading this",
@@ -205,15 +213,14 @@ $(function() {
 					"early comment",
 					"this sea of comments",
 					"of you will skip this but",
-					"scrolling through the comments",
-					"want free subscribers"
+					"scrolling through the comments"
 				];
 
 				for (var ap in attentionPhrases) {
 					if (comment.indexOf(attentionPhrases[ap]) > -1) {
 						if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the REMOVE_ATTENTION_SEEKERS rule.`); }
 
-						processCommentRemoval(detectedComment);
+						processCommentRemoval(commentThreadRenderer);
 						return true;
 					}
 				}
@@ -227,39 +234,38 @@ $(function() {
 		_removedComments = 0;
 	}
 	
-	function processCommentRemoval(comment) {
+	function processCommentRemoval(commentThreadRenderer) {
 		_removedComments++;
 		
 		if (FLAG_INSTEAD_OF_REMOVE) {
-			$(comment)
+			$(commentThreadRenderer)
 				.css({ opacity: 0.5 })
-				.find("#header-author")
+				.find(".comment-renderer-header")
 				.append(_spamFlair);
 		} else {
-			comment.remove();
+			commentThreadRenderer.remove();
 		}
 	}
     
 	function setCommentCounter(removedComments, removedCommentsTotal) {
-		let isUsingImperial = false;
-		const commentCounter = $('ytd-comments-header-renderer #count').find('yt-formatted-string');
-		const commentCounterText = commentCounter.text();
-		const commentCounterTranslation = /[a-zA-Z]+/g.exec(commentCounterText)[0].trim();
-		let currentTotalComments = 0;
+		var isUsingImperial = false;
+		var commentCounter = $('h2.comment-section-header-renderer');
+		var commentCounterText = commentCounter.find('b').first().text();
 		
-		if (commentCounterText.indexOf(',') !== -1) {
+		var getCommentCountsRegex = /• (.*)<span/;
+		var commentCountsHtml = commentCounter.html();
+ 		var commentCounts = getCommentCountsRegex.exec(commentCountsHtml);
+		var currentTotalComments = commentCounts[1];
+		
+		if (currentTotalComments.indexOf(',') !== -1) {
 			isUsingImperial = true;
-			let getCommentCountsRegex = /\d+(\,\d+)*/;
-			currentTotalComments = getCommentCountsRegex.exec(commentCounterText)[0];
-			currentTotalComments = +(currentTotalComments.replace(',', ''));
+			currentTotalComments = currentTotalComments.replace(',', '');
 		} else {
-			let getCommentCountsRegex = /\d+(\.\d+)*/;
-			currentTotalComments = getCommentCountsRegex.exec(commentCounterText)[0];
-			currentTotalComments = +(currentTotalComments.replace('.', ''));
+			currentTotalComments = currentTotalComments.replace('.', '');
 		}
 		
- 		let newCommentCount = (currentTotalComments - removedComments);
- 		let newSpamCount = removedCommentsTotal;
+ 		var newCommentCount = (currentTotalComments - removedComments);
+ 		var newSpamCount = removedCommentsTotal;
 
 		if (newCommentCount > 999) {
 			if (isUsingImperial) {
@@ -271,7 +277,10 @@ $(function() {
 			}
 		}
 		
-        commentCounter.html(`${newCommentCount} ${commentCounterTranslation} | ${newSpamCount} Spam`);
+        commentCounter.html(`
+            <b>${commentCounterText}</b> • ${newCommentCount} <span class=\"alternate-content-link\"></span>
+            <b>Spam</b> • ${newSpamCount}
+        `);
 	}
 	
     if (DEBUG) { console.log("YTACR: YouTube Annoying Comments Remover (YTACR) script active."); }

@@ -1,5 +1,10 @@
 YouTube Comment Filter Changelog
 
+Version 2.0 (30 August 2017)
+Added support for the new YouTube layout (old version not supported anymore, use 1.0.3 instead).
+Increased performance and speed.
+Fixed counters from breaking.
+
 Version 1.0.3 (20 April 2017)
 Fixed total number of comments showing a . or , when less than 1000 comments.
 Fixed Spam flag name.
