@@ -3,12 +3,14 @@ Script that filters unwanted comments.
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>2.0</strong>
+Version <strong>2.0.1</strong>
 
 <A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
-# Screenshot
-<IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview.png" />
+# Screenshots
+<IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview.png" width="550" height="150" />
+<BR />
+<IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
 
 # Description
 This repository includes a userscript for Greasemonkey and Tampermonkey that tries to find and remove stupid comments like "first" and "I'm early".
@@ -32,7 +34,7 @@ Available rules with their default values (everything true by default):
     const REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
     const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
-	const FLAG_INSTEAD_OF_REMOVE = false;  // [Experimental] Instead of removing comments, show a "spam" flair (works, but flags comments multiple times)
+	const FLAG_INSTEAD_OF_REMOVE = false;  // Instead of removing comments, show a "spam" flair
 	
 # Changelog
 <A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>

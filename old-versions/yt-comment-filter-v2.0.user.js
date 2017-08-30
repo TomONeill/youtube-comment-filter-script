@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      2.0.1
+// @version      2.0
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
 // @match        https://www.youtube.com/*
@@ -19,6 +19,7 @@
 $(function() {
 	// TODO:
 	// - Replies to comment get flagged if main comment is, otherwise they do not get checked.
+    // - SPAM flare gets triggered multiple times.
 	// - Add a toggle to determine whether the total comment counter should subtract spam.
 	
 	// CHANGE THESE SETTINGS TO YOUR LIKING:
@@ -34,13 +35,13 @@ $(function() {
     const REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
     const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
-	const FLAIR_INSTEAD_OF_REMOVE = false;  // Instead of removing comments, show a "spam" flair
+	const FLAG_INSTEAD_OF_REMOVE = false;  // [Experimental] Instead of removing comments, show a "spam" flair (works, but flags comments multiple times)
 	
     const DEBUG = false;
 	const INTERVAL = 300; // ms
 	// END OF SETTINGS
     
-	const _spamFlair = "<span class='spam-flair' style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>SPAM</span>";
+	const _spamFlair = "<span style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>SPAM</span>";
 	
     var _removedComments = 0;
     var _removedCommentsTotal = 0;
@@ -229,13 +230,11 @@ $(function() {
 	function processCommentRemoval(comment) {
 		_removedComments++;
 		
-		if (FLAIR_INSTEAD_OF_REMOVE) {
-			if ($(comment).find('.spam-flair').length === 0) {
+		if (FLAG_INSTEAD_OF_REMOVE) {
 			$(comment)
 				.css({ opacity: 0.5 })
 				.find("#header-author")
 				.append(_spamFlair);
-			}
 		} else {
 			comment.remove();
 		}

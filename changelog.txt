@@ -1,5 +1,8 @@
 YouTube Comment Filter Changelog
 
+Version 2.0.1 (31 August 2017)
+Fixed SPAM flair.
+
 Version 2.0 (30 August 2017)
 Added support for the new YouTube layout (old version not supported anymore, use 1.0.3 instead).
 Increased performance and speed.
