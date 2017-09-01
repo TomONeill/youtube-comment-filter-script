@@ -1,10 +1,10 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      2.2.0
+// @version      2.0.2
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
-// @match        https://www.youtube.com/watch?v=*
+// @match        https://www.youtube.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
 // @domain       https://www.youtube.com
@@ -18,8 +18,10 @@
 
 $(function() {
 	// TODO:
-	// - All comments get checked instead of new ones only.
+	// - Replies to comment get flagged if main comment is, otherwise they do not get checked.
+	// - Add a toggle to determine whether the total comment counter should subtract spam (or remove this feature).
 	// - Test YT's commentfilter properly.
+	// - Reset comment counter on visiting another video.
 	
 	// CHANGE THESE SETTINGS TO YOUR LIKING:
 	const MIN_COMMENT_LENGTH = 5;          // Removes any comment that has less than # characters
@@ -42,21 +44,39 @@ $(function() {
     
 	const _spamFlair = "<span class='spam-flair' style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>SPAM</span>";
 	
-    let _removedComments = 0;
-    let _removedCommentsTotal = 0;
+    var _removedComments = 0;
+    var _removedCommentsTotal = 0;
+	let isLoadingCommentSection = false;
 	
-	listenForNewComments();
-	listenToFilterClicks();
+	let commentListenerId;
+	
+	listenForCommentSectionLoading();
+	
+	function listenForCommentSectionLoading() {
+		const hasCommentSection = $('ytd-comments').find('ytd-item-section-renderer ytd-comments-header-renderer').length > 0;
+		if (!hasCommentSection) {
+			isLoadingCommentSection = true;
+			clearInterval(commentListenerId);
+		}
+		
+		if (isLoadingCommentSection && hasCommentSection) {
+			if (DEBUG) { console.log(`YTACR: Comment section loaded.`); }
+			
+			isLoadingCommentSection = false;
+			commentListenerId = listenForNewComments();
+			listenToFilterClicks();
+		}
+		
+		setTimeout(function() {
+			listenForCommentSectionLoading();
+		}, 50);
+	}
 	
 	function listenForNewComments(commentCount = 0) {
-		const currentCommentCount = $('ytd-comments').find('ytd-comment-renderer').length;
-		
-		if (currentCommentCount === 0 && _removedCommentsTotal > 0) {
-			resetCounters();
-		}
+		const currentCommentCount = $('ytd-comments').find('ytd-comment-renderer #content-text').length;
 
 		if (currentCommentCount !== 0 && commentCount !== currentCommentCount) {
-			if (DEBUG) { console.log(`YTACR: New comments found (${currentCommentCount - commentCount}).`); }
+			if (DEBUG) { console.log(`YTACR: New comments found (${currentCommentCount}).`); }
 			
 			removeComments();
 		}
@@ -229,7 +249,7 @@ $(function() {
 				 );
 
 		_removedCommentsTotal += _removedComments;
-		setCommentCounter(_removedComments, _removedCommentsTotal);
+		//setCommentCounter(_removedComments, _removedCommentsTotal);
 		if (DEBUG) {
 			if (FLAIR_INSTEAD_OF_REMOVE) { console.log(`YTACR: Flaired ${_removedComments} comments this run. Total flaired comments: ${_removedCommentsTotal}.`); }
 			else { console.log(`YTACR: Removed ${_removedComments} comments this run. Total removed comments: ${_removedCommentsTotal}.`); }
@@ -254,49 +274,49 @@ $(function() {
 		}
 	}
     
-	function setCommentCounter(removedComments, newSpamCount) {
-		const commentCounter = $('ytd-comments-header-renderer #count');
+	function setCommentCounter(removedComments, removedCommentsTotal) {
+		let isUsingImperial = false;
+		const commentCounter = $('ytd-comments-header-renderer #count').find('yt-formatted-string');
+		const commentCounterText = commentCounter.text();
+		const commentCounterTranslation = /[a-zA-Z]+/g.exec(commentCounterText)[0].trim();
+		let currentTotalComments = 0;
 		
-		if (newSpamCount > 999) {
-			let isUsingImperial = false;
+		if (commentCounterText.indexOf(',') !== -1) {
+			isUsingImperial = true;
+			let getCommentCountsRegex = /\d+(\,\d+)*/;
+			currentTotalComments = getCommentCountsRegex.exec(commentCounterText)[0];
+			currentTotalComments = +(currentTotalComments.replace(',', ''));
+		} else {
+			let getCommentCountsRegex = /\d+(\.\d+)*/;
+			currentTotalComments = getCommentCountsRegex.exec(commentCounterText)[0];
+			currentTotalComments = +(currentTotalComments.replace('.', ''));
+		}
+		
+ 		let newCommentCount = (currentTotalComments - removedComments);
+ 		let newSpamCount = removedCommentsTotal;
 
-			const commentCounterText = commentCounter.find('yt-formatted-string').text();
-			if (commentCounterText.indexOf(',') !== -1) {
-				isUsingImperial = true;
-			}
-
+		if (newCommentCount > 999) {
 			if (isUsingImperial) {
+				newCommentCount = newCommentCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1,").split("").reverse().join("");
 				newSpamCount = newSpamCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1,").split("").reverse().join("");
 			} else {
+				newCommentCount = newCommentCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1.").split("").reverse().join("");
 				newSpamCount = newSpamCount.toString().split("").reverse().join("").replace(/(.{3})/g, "$1.").split("").reverse().join("");
 			}
 		}
 		
-		const spamCounter = commentCounter.find('#spamCount');
-		if (spamCounter.length === 0) {
-			commentCounter.append(`<span id="spamCount" class="count-text style-scope ytd-comments-header-renderer"> (${newSpamCount} Spam)</span>`);
-		} else {
-			spamCounter.html(` (${newSpamCount} Spam)`);
-		}
+        commentCounter.html(`${newCommentCount} ${commentCounterTranslation} | ${newSpamCount} Spam`);
 	}
 	
 	function listenToFilterClicks() {
-		$(document).click((event) => {
-			if (!$(event.target).parent().is('yt-sort-filter-sub-menu-renderer paper-item')) {
-				return;
-			}
-			
-			if (DEBUG) { console.log(`YTACR: Filter has changed.`); }
+		$('yt-sort-filter-sub-menu-renderer paper-item').click(() => {
 			resetCounters();
 		});
 	}
 	
 	function resetCounters() {
-		if (DEBUG) { console.log(`YTACR: Resetting counters.`); }
 		_removedComments = 0;
 		_removedCommentsTotal = 0;
-		const spamCounter = $('ytd-comments-header-renderer #count #spamCount');
-		spamCounter.html(` (0 Spam)`);
 	}
 	
     if (DEBUG) { console.log("YTACR: YouTube Annoying Comments Remover (YTACR) script active."); }

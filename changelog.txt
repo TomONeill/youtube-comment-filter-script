@@ -1,5 +1,11 @@
 YouTube Comment Filter Changelog
 
+Version 2.2.0 (1 September 2017)
+Flairing comments by default now.
+Fade in on mouseover on a flaired comment.
+Filtering rechecks comments (since deleted comments might come back after filtering).
+Added some extra spam checks.
+
 Version 2.0.1 (31 August 2017)
 Fixed SPAM flair.
 
