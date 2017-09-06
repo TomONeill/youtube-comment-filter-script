@@ -8,7 +8,7 @@ Version <strong>2.2.0</strong>
 <A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
 # Screenshots
-<IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview.png" width="550" height="150" />
+<IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview.png" width="600" height="100" />
 <BR />
 <IMG SRC="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
 
