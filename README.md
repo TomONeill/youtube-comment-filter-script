@@ -34,7 +34,7 @@ Available rules with their default values (everything true by default):
     const REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
     const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
-	const FLAG_INSTEAD_OF_REMOVE = true;  // Instead of removing comments, show a "spam" flair
+	const FLAG_INSTEAD_OF_REMOVE = true;   // Instead of removing comments, show a "spam" flair
 	
 # Changelog
 <A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
