@@ -1,5 +1,8 @@
 YouTube Comment Filter Changelog
 
+Version 2.2.1 (2 October 2017)
+Faster loading.
+
 Version 2.2.0 (1 September 2017)
 Flairing comments by default now.
 Fade in on mouseover on a flaired comment.
