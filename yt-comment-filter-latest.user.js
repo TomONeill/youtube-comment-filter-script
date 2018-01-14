@@ -41,7 +41,7 @@ $(function() {
 		""
 	];
 	
-    const DEBUG = true;
+    const DEBUG = false;
 	const INTERVAL = 300; // ms
 	// END OF SETTINGS
     
