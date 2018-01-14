@@ -1,5 +1,8 @@
 YouTube Comment Filter Changelog
 
+Version 2.3 (14 January 2018)
+Added ability to block users.
+
 Version 2.2.1 (2 October 2017)
 Faster loading.
 

@@ -3,7 +3,7 @@ Script that filters unwanted comments.
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>2.2.1</strong>
+Version <strong>2.3</strong>
 
 <A HREF="https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
@@ -35,6 +35,14 @@ Available rules with their default values (everything true by default):
     const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
 	const FLAG_INSTEAD_OF_REMOVE = true;   // Instead of removing comments, show a "spam" flair
+
+*New*:
+Ability to block users by their url (right click on user name and select "Copy url", paste it in this list within quotes)
+	
+	const BLOCKED_USER_URLS = [
+		// EXAMPLE: "https://www.youtube.com/channel/abcdefghijklmnop"
+		""
+	];
 	
 # Changelog
 <A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>

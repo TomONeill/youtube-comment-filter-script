@@ -1,10 +1,11 @@
 ﻿// ==UserScript==
 // @name         YouTube Comment Filter
 // @namespace    https://www.youtube.com/
-// @version      2.2.1
+// @version      2.3
 // @description  Removes typical comments like 'first' and 'I'm early'. Everything can be modified to the users liking.
 // @updateURL 	 https://github.com/TomONeill/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js
 // @match        https://www.youtube.com/*
+// @run-at       document-start
 // @grant        unsafeWindow
 // @domain       https://www.youtube.com
 // @require      https://code.jquery.com/jquery-3.2.1.min.js
@@ -34,8 +35,13 @@ $(function() {
     const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
 	const FLAIR_INSTEAD_OF_REMOVE = true;  // Instead of removing comments, show a "spam" flair
+
+	const BLOCKED_USER_URLS = [
+		// EXAMPLE: "https://www.youtube.com/channel/abcdefghijklmnop"
+		""
+	];
 	
-    const DEBUG = false;
+    const DEBUG = true;
 	const INTERVAL = 300; // ms
 	// END OF SETTINGS
     
@@ -69,7 +75,15 @@ $(function() {
 		$('ytd-comment-renderer')
 			.each((index, detectedComment) => {
 			const comment = $(detectedComment).find('#content-text').html().toLowerCase();
+			const commentAuthorUrl = $(detectedComment).find('#author-text').attr('href');
 			const commentWordCount = comment.split(' ').length;
+
+			if (BLOCKED_USER_URLS.some((blockedUserUrl) => blockedUserUrl.includes(commentAuthorUrl))) {
+				if (DEBUG) { console.log(`YTACR: Comment "${comment}" flagged because the user was in BLOCKED_USER_URLS`); }
+
+				processCommentRemoval(detectedComment);
+				return true;
+			}
 			
 			if (comment.length < MIN_COMMENT_LENGTH) {
 				if (DEBUG) { console.log(`YTACR: Comment "${comment}" violates the MIN_COMMENT_LENGTH rule (${comment.length}/${MIN_COMMENT_LENGTH})`); }
@@ -152,7 +166,8 @@ $(function() {
 			if (REMOVE_SELF_LIKES) {
 				const selfLikes = [
 					"can i get a thumbs up",
-					"can I have likes",
+					"can i have likes",
+					"can i get a few likes",
 					"like my comment",
 					"like my own comment",
 					"i get top rated",
@@ -160,7 +175,12 @@ $(function() {
 					"every person who likes this comment",
 					"comment when done",
 					"sub=",
+					"sub =",
 					"sub:",
+					"like=",
+					"like =",
+					"like:",
+					"dislike: ",
 					"like if you're watching in"
 				];
 
