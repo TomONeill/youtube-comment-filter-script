@@ -1,5 +1,8 @@
 YouTube Comment Filter Changelog
 
+Version 2.4 (9 February 2018)
+Added CONVERT_DIACRITICS flag to convert unusual unicode characters to plain characters and defaulting it to true.
+
 Version 2.3 (14 January 2018)
 Added ability to block users.
 
