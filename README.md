@@ -34,7 +34,7 @@ Available rules with their default values (everything true by default):
     const REMOVE_SELF_PROMO = true;        // Removes any comment which has suspicion of asking for subscribers
     const REMOVE_ATTENTION_SEEKERS = true; // Removes any comment which has suspicion of seeking attention/is unrelated to the video
 	
-	const FLAG_INSTEAD_OF_REMOVE = true;   // Instead of removing comments, show a "spam" flair
+	const FLAIR_INSTEAD_OF_REMOVE = true;   // Instead of removing comments, show a "spam" flair
 
 *New*:
 Ability to block users by their url (right click on user name and select "Copy url", paste it in this list within quotes)
