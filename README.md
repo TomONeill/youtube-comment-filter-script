@@ -5,12 +5,12 @@ Enjoy.
 <BR/><BR/>
 Version <strong>2.4</strong>
 
-<A HREF="https://github.com/PinocchioFaken/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
+<A HREF="https://github.com/MoutatsuLai/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
 
 # Screenshots
-<IMG SRC="https://raw.githubusercontent.com/PinocchioFaken/youtube-comment-filter-script/master/screenshots/preview.png" width="600" height="100" />
+<IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview.png" width="600" height="100" />
 <BR />
-<IMG SRC="https://raw.githubusercontent.com/PinocchioFaken/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
+<IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
 
 # Description
 This repository includes a userscript for Greasemonkey and Tampermonkey that tries to find and remove stupid comments like "first" and "I'm early".
@@ -45,7 +45,7 @@ Ability to block users by their url (right click on user name and select "Copy u
 	];
 	
 # Changelog
-<A HREF="https://raw.githubusercontent.com/TomONeill/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
+<A HREF="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
 
 # Donate
 If you like my work so much you feel like doing something nice for me, a complete stranger of the internet, you can.<BR />
