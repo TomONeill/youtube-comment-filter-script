@@ -22,11 +22,11 @@ $(function() {
 	// - Test YT's commentfilter properly.
 
 	// CHANGE THESE SETTINGS TO YOUR LIKING:
-	const FLAIR_INSTEAD_OF_REMOVE = false; // Instead of removing comments, show a "spam" flair
-
-	const MIN_COMMENT_LENGTH = 0;// 刪除少於＃個字符的任何回應
-	const MIN_COMMENT_WORDS = 0; //刪除少於＃個單詞的任何回應
-	const MIN_COMMENT_WORDS_FILTER = 100; //刪除任何少於＃個字符的回應，並與任何（非攻擊性）過濾器結合使用
+   const FLAIR_INSTEAD_OF_REMOVE = true; // true會淡化處理五毛留言，false會直接過濾處理五毛留言
+	
+   const MIN_COMMENT_LENGTH = 0;// 刪除少於＃個字符的任何回應
+   const MIN_COMMENT_WORDS = 0; //刪除少於＃個單詞的任何回應
+   const MIN_COMMENT_WORDS_FILTER = 100; //刪除任何少於＃個字符的回應，並與任何（非攻擊性）過濾器結合使用
 
     const REMOVE_FIRST = true; //刪除帶有“ first”組合的任何註釋
     const REMOVE_EARLY = true; //刪除所有帶有“early”組合的評論
@@ -245,7 +245,30 @@ $(function() {
 "https://www.youtube.com/channel/UC_3m8w3Fm5800qtIpiAagZw",
 "https://www.youtube.com/channel/UCykmbuEDLdEeYRnKK1yYEcA",
 "https://www.youtube.com/channel/UCKg1hgnfqn5L-ra8GRDGN0g",
-"https://www.youtube.com/channel/UCmsaTIgT7DCFBXaBWDKf5Ig"
+"https://www.youtube.com/channel/UCmsaTIgT7DCFBXaBWDKf5Ig",
+"https://www.youtube.com/channel/UCvMybAEXJHuL-l2qF4nnr0w",
+"https://www.youtube.com/channel/UCHe283AGuZ2wpXjix4lH4Rw",
+"https://www.youtube.com/channel/UC9H5YNaRZIWjOoKyGCA4XZw",
+"https://www.youtube.com/channel/UCCADNbBfU31n-5CkLk3YPxA",
+"https://www.youtube.com/channel/UCSSR1R-dV_Bg1fi5cXpFj1w",
+"https://www.youtube.com/channel/UCM1c6R_YNm6DVIF1GpKkfCg",
+"https://www.youtube.com/channel/UChP_fUssGOl7PWqc8c3wsMQ",
+"https://www.youtube.com/channel/UC4Lq_Jgkk9zCK0jlf-bntxA",
+"https://www.youtube.com/channel/UChwc2FlXU7Tysp-MX_XUWoQ",
+"https://www.youtube.com/channel/UCr0W02XOOvq_m_1JbSj-4Og",
+"https://www.youtube.com/channel/UCbQsBHyeth_dFyz5iheWu9w",
+"https://www.youtube.com/channel/UCewuYt_-HPRotN1rx-YHlFg",
+"https://www.youtube.com/channel/UCPjlrblk4ptWRDXUrblalxg",
+"https://www.youtube.com/channel/UCHcGVdVy3LVOjQ2mq1cYWiQ",
+"https://www.youtube.com/channel/UCYnG8HC_nDOuSZgGNAGcuzw",
+"https://www.youtube.com/channel/UC6Tlo7B-B4GSvAyT263Lezg",
+"https://www.youtube.com/channel/UC5tANjxaL3xiltLC31_H0Sg",
+"https://www.youtube.com/channel/UCLHzqNIppVjzYogMxAzhtTA",
+"https://www.youtube.com/channel/UCXV8a9NXPkGzbETktTm11oQ",
+"https://www.youtube.com/channel/UCwQAIlLL7wDeG-yZTEg8T5g",
+"https://www.youtube.com/channel/UCJGnVVxisqjqrbKjq6s0ZaA",
+"https://www.youtube.com/channel/UC1BUzuGd_EgrE0coArJioFw",
+"https://www.youtube.com/channel/UCX6XtbnZMHKN_trTXtpd72w"
 	];
 
     // MISC SETTINGS:
@@ -255,7 +278,7 @@ $(function() {
 	const INTERVAL = 300; // ms
 	// END OF SETTINGS. PLEASE DO NOT MODIFY ANYTHING BELOW THIS LINE IF YOU DON'T KNOW WHAT YOU ARE DOING
 
-	const _spamFlair = "<span class='spam-flair' style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>SPAM</span>";
+	const _spamFlair = "<span class='spam-flair' style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>我是五毛</span>";
 
     let _removedComments = 0;
     let _removedCommentsTotal = 0;
@@ -316,58 +339,83 @@ $(function() {
 
 			if (REMOVE_FIRST) {
 				const first = [
-"梦",
-"湾",
-"你妈",
-"熊三",
-"三飞",
-"民进党",
-"台湾国",
-"积电",
-"美国",
-"有钱",
-"愿意",
-"着吗",
-"没钱",
-"傻B",
-"党",
-"湾",
-"强调",
-"服务",
-"是吗",
-"主义",
-"共产",
-"阶级",
-"剥削",
-"灿荣",
-"孙中山",
-"优越",
 "人话",
-"威尔刚",
-"进取",
-"屁股",
-"牛逼",
-"榨菜",
-"统一",
-"导弹",
-"战",
-"脑",
-"台独",
-"东风",
-"渣",
-"智障",
-"保洁",
-"诈菜",
-"开枪",
-"两千公里",
+"三飞",
+"大头",
+"山里",
 "飞弹",
+"专卖",
+"反舰",
+"开枪",
+"牛逼",
+"东风",
+"主义",
+"厉害了",
+"台独",
+"台湾国",
+"旧",
+"民共",
+"民进党",
+"灭",
+"用爱",
+"优越",
+"军",
+"奸",
+"孙中山",
+"导弹",
+"有钱",
+"老蒋",
+"两千公里",
 "你们",
-"编",
+"你妈",
+"呆湾",
+"屁股",
+"没钱",
+"灿荣",
+"诈菜",
+"走狗",
+"阶级",
+"囼",
+"国税局",
+"服务",
+"经国号",
+"进取",
+"保洁",
+"威尔刚",
 "弯弯",
-"渔船",
+"战",
+"是吗",
+"烂",
+"独裁",
 "看门狗",
+"统一",
+"美国",
+"党",
+"剥削",
+"畜",
+"积电",
+"脑",
 "骨头",
-"大头"
+"弹",
+"梦",
+"渔船",
+"着吗",
+"绿",
+"强调",
+"智障",
+"渣",
+"湾",
+"编",
+"装备",
+"傻B",
+"意淫",
+"腦",
+"愿意",
+"榨菜",
+"熊三",
+"孽",
+"彎彎",
+"灣灣"
 				];
 
 				for (var f in first) {
@@ -399,8 +447,7 @@ $(function() {
 					"i'm early",
 					"im early",
 					"who else is early",
-"爱",
-"国"
+"爱@"
 				];
 
 				for (var eo in earlyOptions) {
@@ -558,7 +605,7 @@ $(function() {
 		if (spamCounter.length === 0) {
 			commentCounter.append(`<span id="spamCount" class="count-text style-scope ytd-comments-header-renderer"> (${newSpamCount} Spam)</span>`);
 		} else {
-			spamCounter.html(` (${newSpamCount} Spam)`);
+			spamCounter.html(` (已處理${newSpamCount} 筆五毛留言)`);
 		}
 	}
 
