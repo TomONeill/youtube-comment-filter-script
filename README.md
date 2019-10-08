@@ -7,7 +7,7 @@ Version <strong>2.4</strong>
 # 功能描述
 針對Youyube上惱人的五毛與屁孩訊息做過濾，可實現過濾字詞、屏蔽帳號等功能，可自行讀說明進行添加與設定規則。
 # 前置作業
-Chrome請安裝附加元件Tampermonkey
+Chrome請安裝附加元件Tampermonkey<BR/>
 Firefox請安裝Greasemonkey
 # 點我安裝
 <A HREF="https://github.com/MoutatsuLai/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">點我安裝</A>
