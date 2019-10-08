@@ -8,7 +8,7 @@
 
 	
 # 截圖
-<IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/%E6%88%AA%E5%9C%962019-10-08_001.jpg" width="1020" height="711" />
+<IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/2019-10-08_001.jpg?raw=true" width="500" height="700" />
 <BR />
 <IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/1.gif" width="442" height="473" />
 
