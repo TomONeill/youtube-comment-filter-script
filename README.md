@@ -1,9 +1,8 @@
-# YouTube Comment Filter Script-五毛評論過濾器
-Script that filters unwanted comments.
+# YouTube Comment Filter Script 2.4-分叉五毛評論過濾器
+原作者是TomONeill開發的留言過濾器，本人只是改寫針對五毛特化而已
 <BR/>
-Enjoy.
+簡言之，還我清淨的Youtube。
 <BR/><BR/>
-Version <strong>2.4</strong>
 # 功能描述
 針對Youyube上惱人的五毛與屁孩訊息做過濾，可實現過濾字詞、屏蔽帳號等功能，可自行讀說明進行添加與設定規則。
 # 前置作業
@@ -18,7 +17,7 @@ Firefox請安裝<A HREF="https://addons.mozilla.org/zh-TW/firefox/addon/greasemo
 <IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
 
 
-    const FLAIR_INSTEAD_OF_REMOVE = true; // true會淡化處理五毛留言，false會直接過濾處理五毛留言
+    const FLAIR_INSTEAD_OF_REMOVE = true; // true會淡化處理五毛留言，false會直接過濾處理五毛留言，強烈建議在確認效果後使用false
 	
     const MIN_COMMENT_LENGTH = 0;// 刪除少於＃個字符的任何回應
     const MIN_COMMENT_WORDS = 0; //刪除少於＃個單詞的任何回應
