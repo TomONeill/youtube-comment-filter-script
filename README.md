@@ -4,18 +4,22 @@ Script that filters unwanted comments.
 Enjoy.
 <BR/><BR/>
 Version <strong>2.4</strong>
+# 功能描述
+針對Youyube上惱人的五毛與屁孩訊息做過濾，可實現過濾字詞、屏蔽帳號等功能，可自行讀說明進行添加與設定規則。
+# 前置作業
+Chrome請安裝附加元件Tampermonkey
+Firefox請安裝Greasemonkey
+# 點我安裝
+<A HREF="https://github.com/MoutatsuLai/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">點我安裝</A>
 
-<A HREF="https://github.com/MoutatsuLai/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">INSTALL</A>
-
-# Screenshots
+# 截圖
 <IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview.png" width="600" height="100" />
 <BR />
 <IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
 
-# Description
-This repository includes a userscript for Greasemonkey and Tampermonkey that tries to find and remove stupid comments like "first" and "I'm early".
 
-# How it works
+#(以下原作者說明)
+# How it works 
 The script does a very simple job by comparing each comment with hardcoded commonly used comments (or commonly used word combinations). It checks every now and then (configurable in the code) for new comments (which means that when you scroll down it will look for comments which weren't there before or after clicking the "Load more comments" button) and filters the annoying ones out.
 
 # Turn off certain 'rules'
