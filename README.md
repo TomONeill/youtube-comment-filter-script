@@ -5,17 +5,21 @@
 <BR/><BR/>
 # 功能描述
 針對Youyube上惱人的五毛與屁孩訊息做過濾，可實現過濾字詞、屏蔽帳號等功能，可自行讀說明進行添加與設定規則。
+
+	
+# 截圖
+<IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/%E6%88%AA%E5%9C%962019-10-08_001.jpg" width="1020" height="711" />
+<BR />
+<IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/1.gif" width="442" height="473" />
+
 # 前置作業
 Chrome請安裝附加元件<A HREF="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW&utm_source=chrome-ntp-launcher">Tampermonkey</A><BR/>
 Firefox請安裝<A HREF="https://addons.mozilla.org/zh-TW/firefox/addon/greasemonkey/">Greasemonkey</A>
 # 正式安裝YouTube Comment Filter Script-五毛評論過濾器
 <A HREF="https://github.com/MoutatsuLai/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">點我安裝</A>
 
-# 截圖
-<IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview.png" width="600" height="100" />
-<BR />
-<IMG SRC="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/screenshots/preview_2.png" width="450" height="200" />
 
+# 設定方法
 
     const FLAIR_INSTEAD_OF_REMOVE = true; // true會淡化處理五毛留言，false會直接過濾處理五毛留言，強烈建議在確認效果後使用false
 	
@@ -43,7 +47,8 @@ Ability to block users by their url (right click on user name and select "Copy u
 "https://www.youtube.com/channel/UCH4tTq1pvv8uBzeml4krf3A",
 "https://www.youtube.com/channel/UCOzgx6RTUq4WUCj6VTK1jyg"
 	];
-	
+
+
 # 更新記錄
 <A HREF="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
 
