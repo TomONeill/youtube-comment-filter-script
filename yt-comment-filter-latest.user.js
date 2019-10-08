@@ -268,7 +268,38 @@ $(function() {
 "https://www.youtube.com/channel/UCwQAIlLL7wDeG-yZTEg8T5g",
 "https://www.youtube.com/channel/UCJGnVVxisqjqrbKjq6s0ZaA",
 "https://www.youtube.com/channel/UC1BUzuGd_EgrE0coArJioFw",
-"https://www.youtube.com/channel/UCX6XtbnZMHKN_trTXtpd72w"
+"https://www.youtube.com/channel/UCX6XtbnZMHKN_trTXtpd72w",
+"https://www.youtube.com/channel/UCH6ajgmJyYzVa8BuZkOke1Q",
+"https://www.youtube.com/channel/UCWBNFmVMN_M_gLCvUZ33-Lg",
+"https://www.youtube.com/channel/UC9eWSLBZQxqPSSkQqyAdKDw",
+"https://www.youtube.com/channel/UCxAgeAl9glzBCi5kQfBNrUQ",
+"https://www.youtube.com/channel/UC0AqCSh1n65uq5Kvd400Axg",
+"https://www.youtube.com/channel/UCJttRUSHFdjhVv-jGVNIpFw",
+"https://www.youtube.com/channel/UCtdHhbmKmoo31QX0EF8oZoA",
+"https://www.youtube.com/channel/UCTlSZ-DQXZw7eDfqFZtbWyw",
+"https://www.youtube.com/channel/UCTmDiItSv-KSPZCwF62ePYg",
+"https://www.youtube.com/channel/UCLsvc9I2HxFPif_WfPT1jzg",
+"https://www.youtube.com/channel/UC07qsRJmdqgcNZ0jg-v5C8Q",
+"https://www.youtube.com/channel/UC3tTWhlFHXdRomz5U8z8VxA",
+"https://www.youtube.com/channel/UC38fgKcE0bu8oPD9RNdDSEw",
+"https://www.youtube.com/channel/UCY1CvMHGwntDdpuQ7NkYW2Q",
+"https://www.youtube.com/channel/UC9n4kyLxWxhFqhT_-W9D3aA",
+"https://www.youtube.com/channel/UCvA9BgR3z49uRxwGOtRwe4A",
+"https://www.youtube.com/channel/UCaQeTDIAxGusPucjCEI-dnw",
+"https://www.youtube.com/channel/UCKk8GmYfqgkoDCisJlGtn0w",
+"https://www.youtube.com/channel/UCndTnYI-flBecyG3FK9LoWA",
+"https://www.youtube.com/channel/UCoGE5pCWJup4JqTTluQDVcQ",
+"https://www.youtube.com/channel/UCSZDdo3JzEDrWpmocW3ZIOg",
+"https://www.youtube.com/channel/UCqRqc4ZMdvQbSBALebDr4vw",
+"https://www.youtube.com/channel/UCTMX4uZlBN5uyyny_7euYfQ",
+"https://www.youtube.com/channel/UCYJ81x8aypiwD4-wAfinTEg",
+"https://www.youtube.com/channel/UCLDciPTwdhcHm9ujqIWSTVQ",
+"https://www.youtube.com/channel/UCVPn9jAn9B00PR-P84Mis8A",
+"https://www.youtube.com/channel/UCxgse9uiLOs00B6Lg2VH1og",
+"https://www.youtube.com/channel/UCoKzWL6ftul500Kld81Nx4Q",
+"https://www.youtube.com/channel/UCqJDMnvTXmRrViGfPpyxd5w",
+"https://www.youtube.com/channel/UCDJgx1HPUzTKSAH_oJpM6Vw",
+"https://www.youtube.com/channel/UC0FJcm7E3vCwnLpVSYTctVg"
 	];
 
     // MISC SETTINGS:
@@ -278,7 +309,7 @@ $(function() {
 	const INTERVAL = 300; // ms
 	// END OF SETTINGS. PLEASE DO NOT MODIFY ANYTHING BELOW THIS LINE IF YOU DON'T KNOW WHAT YOU ARE DOING
 
-	const _spamFlair = "<span class='spam-flair' style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>我是五毛</span>";
+	const _spamFlair = "<span class='spam-flair' style='font-family: Roboto, Arial, sans-serif; font-size: 10px; color: #f5511e; margin-left: 10px; margin-top: 4px;'>我是五毛或屁孩</span>";
 
     let _removedComments = 0;
     let _removedCommentsTotal = 0;
@@ -359,19 +390,18 @@ $(function() {
 "灭",
 "用爱",
 "优越",
-"军",
 "奸",
 "孙中山",
 "导弹",
 "有钱",
 "老蒋",
-"两千公里",
 "你们",
 "你妈",
 "呆湾",
 "屁股",
 "没钱",
 "灿荣",
+"纸上谈兵",
 "诈菜",
 "走狗",
 "阶级",
