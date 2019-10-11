@@ -1,21 +1,21 @@
-# YouTube Comment Filter Script 2.4-分叉五毛評論過濾器
+# YouTube Comment Filter Script 2.4-分叉成五毛評論過濾器
 原作者是TomONeill開發的留言過濾器，本人只是改寫針對五毛特化而已
 <BR/>
 簡言之，還我清淨的Youtube。
 <BR/><BR/>
 # 功能描述
 針對Youyube上惱人的五毛與屁孩訊息做過濾，可實現過濾字詞、屏蔽帳號等功能，可自行讀說明進行添加與設定規則。
-
+五毛名單來自黄智贤的夜问、CCTV等五毛熱門影片的幾千則留言名單。
 	
 # 截圖
 <IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/2019-10-08_001.jpg?raw=true" width="500" height="700" />
 <BR />
 <IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/1.gif" width="442" height="473" />
 
-# 前置作業
+# 安裝步驟1
 Chrome請安裝附加元件<A HREF="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW&utm_source=chrome-ntp-launcher">Tampermonkey</A><BR/>
 Firefox請安裝<A HREF="https://addons.mozilla.org/zh-TW/firefox/addon/greasemonkey/">Greasemonkey</A>
-# 正式安裝YouTube Comment Filter Script-五毛評論過濾器
+# 安裝步驟2 YouTube Comment Filter Script-五毛評論過濾器
 <A HREF="https://github.com/MoutatsuLai/youtube-comment-filter-script/raw/master/yt-comment-filter-latest.user.js">點我安裝</A>
 
 
