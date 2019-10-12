@@ -2337,7 +2337,6 @@ $(function() {
 "https://www.youtube.com/channel/UCW-7I3Xw9KtF_JHxaFI2dKw",
 "https://www.youtube.com/channel/UCrgxauMN0qrlD8RrF__bqNw",
 "https://www.youtube.com/channel/UCpB8fqLcHzLPskygB60Llfw",
-"https://www.youtube.com/channel/UCa6ERCDt3GzkvLye32ar89w",
 "https://www.youtube.com/channel/UCcLK3j-XWdGBnt5bR9NJHaQ",
 "https://www.youtube.com/channel/UCsyeADr9gl7QCMa0voH_6Hg",
 "https://www.youtube.com/channel/UC7osPtFCVGg2_59WW38yEZA",
@@ -3573,7 +3572,8 @@ $(function() {
 "https://www.youtube.com/channel/UCM0r3hzLNU-HY3v5MoOSWSQ",
 "https://www.youtube.com/channel/UC8eTs3VGAdFyko1Ci6JlX5g",
 "https://www.youtube.com/channel/UCB70WVMpTQfeziLdAtY6mng",
-"https://www.youtube.com/channel/UCnE2CYY9cdcs-3E2IVwnn_w"
+"https://www.youtube.com/channel/UCnE2CYY9cdcs-3E2IVwnn_w",
+"https://www.youtube.com/channel/UCJn6nTuxBTWe73jmHNgl1yA"
 
 
 	];
