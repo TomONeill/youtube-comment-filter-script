@@ -53,7 +53,9 @@ Ability to block users by their url (right click on user name and select "Copy u
 <A HREF="https://raw.githubusercontent.com/MoutatsuLai/youtube-comment-filter-script/master/changelog.txt">View changelog</A>
 # 我不是原作者，喜歡本應用，麻煩協助提供我五毛帳號
 [我是五毛帳號收集區](https://github.com/TomONeill/youtube-comment-filter-script/pull/2)
+<BR/>
 <IMG SRC="https://github.com/MoutatsuLai/youtube-comment-filter-script/blob/master/screenshots/5m.gif?raw=true" width="565" height="368" />
+<BR/>
 # 贊助原作者TomONeill
 If you like my work so much you feel like doing something nice for me, a complete stranger of the internet, you can.<BR />
 <A HREF="https://www.paypal.me/TomONeill">Donate here</A>.
